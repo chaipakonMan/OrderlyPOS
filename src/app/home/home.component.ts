@@ -27,7 +27,8 @@ export class HomeComponent {
     { name: 'Mango Sticky Rice 1', selected: false , category: 'Dessert', price: 7, quantity: 1, comment: ""},
     { name: 'Extra Meat 1', selected: false , category: 'AddOn', price: 3, quantity: 1, comment: ""},
     { name: 'Extra Vegetable 1', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
-    { name: 'Extra noodle/rice 1', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""}
+    { name: 'Extra noodle/rice 1', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""},
+    { name: 'Extra noodle/rice 2', selected: false , category: 'AddOn', price: 2, quantity: 1, comment: ""}
   ];
 
   constructor(private router: Router) {}
