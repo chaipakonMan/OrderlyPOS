@@ -25,7 +25,7 @@ export class SummaryComponent implements OnInit {
     for (let i = 0; i < this.selectedFoods.length; i++) {
       this.subTotal = this.subTotal + (this.selectedFoods[i].quantity * this.selectedFoods[i].price);
     }
-    this.tax = this.roundToTwo(this.subTotal*0.108);
+    this.tax = this.roundToTwo(this.subTotal*0.118);
     this.total = this.subTotal + this.tax;
     const now = new Date();
     this.timestamp = now.toLocaleString();
