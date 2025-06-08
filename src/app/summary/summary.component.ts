@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CapacitorThermalPrinter } from 'capacitor-thermal-printer';
+import { BluetoothPrinter } from '@kduma-autoid/capacitor-bluetooth-printer';
 
 @Component({
   selector: 'app-summary',
@@ -38,39 +38,17 @@ export class SummaryComponent implements OnInit {
 
   async printCard(cardId: string) {
     if(cardId === "order-card"){
-      await CapacitorThermalPrinter.connect({ address:":0C:25:76:6A:EC:E8" });
-      await CapacitorThermalPrinter.begin()
-      .align('center')
-      .bold()
-      .underline()
-      .text('Store Order\n')
-      .doubleWidth()
-      .text('ITEMS\n')
-      .clearFormatting()
-      .text('Item 1: Egg Roll\n')
-      .text('Item 2: Somesome\n')
-      .align('center')
-      .cutPaper()
-      .write();
+      console.log("order!");
+      await BluetoothPrinter.connect({ address: ':0C:25:76:6A:EC:E8' });
+      await BluetoothPrinter.print({ data: 'Hello, Order!' });
+      await BluetoothPrinter.disconnect();
     }
 
     if(cardId === "receipt-card"){
-      await CapacitorThermalPrinter.connect({ address:":0C:25:76:6A:EC:E8" });
-      await CapacitorThermalPrinter.begin()
-      .align('center')
-      .bold()
-      .underline()
-      .text('Store Receipt\n')
-      .doubleWidth()
-      .text('ITEMS\n')
-      .clearFormatting()
-      .text('Item 1: $10.00\n')
-      .text('Item 2: $15.00\n')
-      .align('right')
-      .text('Total: $25.00\n')
-      .align('center')
-      .cutPaper()
-      .write();
+      console.log("receipt!");
+      await BluetoothPrinter.connect({ address: ':0C:25:76:6A:EC:E8' });
+      await BluetoothPrinter.print({ data: 'Hello, Receipt!' });
+      await BluetoothPrinter.disconnect();
     }
 
     // TODO refactor this method, just set up the print content and address in the if.
@@ -79,14 +57,9 @@ export class SummaryComponent implements OnInit {
     var content = 'Store Receipt\n\nITEMS\n\n'
         content += 'Store Order\n\nITEMS\n\n';
 
-    await CapacitorThermalPrinter.connect({ address:":0C:25:76:6A:EC:E8" });
-    await CapacitorThermalPrinter.begin()
-      .align('center')
-      .bold()
-      .underline()
-      .text(content)
-      .cutPaper()
-      .write();
+      await BluetoothPrinter.connect({ address: ':0C:25:76:6A:EC:E8' });
+      await BluetoothPrinter.print({ data: content });
+      await BluetoothPrinter.disconnect();
 
   }
 
