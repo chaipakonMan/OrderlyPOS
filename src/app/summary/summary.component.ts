@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CapacitorThermalPrinter } from 'capacitor-thermal-printer';
 
 @Component({
   selector: 'app-summary',
@@ -35,33 +36,58 @@ export class SummaryComponent implements OnInit {
     return Math.round((num + Number.EPSILON) * 100) / 100;
   }
 
-  printCard(cardId: string) {
-    const card = document.getElementById(cardId);
-    if (!card) return;
-  
-    const printWindow = window.open('', '', 'width=800,height=600');
-    if (printWindow) {
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Print Summary</title>
-            <style>
-              body { font-family: Arial, sans-serif; padding: 20px; }
-              .summary-card { border: 1px solid #ccc; padding: 16px; border-radius: 8px; }
-              button { display: none; }
-              h4 { margin: 0; }
-              .timestamp { font-size: 15px; margin-top: 4px; }
-              .no-print { display: none !important; }
-            </style>
-          </head>
-          <body>${card.innerHTML}</body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.focus();
-      printWindow.print();
-      printWindow.close();
+  async printCard(cardId: string) {
+    if(cardId === "order-card"){
+      await CapacitorThermalPrinter.connect({ address:"" });
+      await CapacitorThermalPrinter.begin()
+      .align('center')
+      .bold()
+      .underline()
+      .text('Store Order\n')
+      .doubleWidth()
+      .text('ITEMS\n')
+      .clearFormatting()
+      .text('Item 1: Egg Roll\n')
+      .text('Item 2: Somesome\n')
+      .align('center')
+      .cutPaper()
+      .write();
     }
+
+    if(cardId === "receipt-card"){
+      await CapacitorThermalPrinter.connect({ address:"" });
+      await CapacitorThermalPrinter.begin()
+      .align('center')
+      .bold()
+      .underline()
+      .text('Store Receipt\n')
+      .doubleWidth()
+      .text('ITEMS\n')
+      .clearFormatting()
+      .text('Item 1: $10.00\n')
+      .text('Item 2: $15.00\n')
+      .align('right')
+      .text('Total: $25.00\n')
+      .align('center')
+      .cutPaper()
+      .write();
+    }
+
+    // TODO refactor this method, just set up the print content and address in the if.
+    // and print job start here with using text content.
+    // example here.
+    var content = 'Store Receipt\n\nITEMS\n\n'
+        content += 'Store Order\n\nITEMS\n\n';
+
+    await CapacitorThermalPrinter.connect({ address:"" });
+    await CapacitorThermalPrinter.begin()
+      .align('center')
+      .bold()
+      .underline()
+      .text(content)
+      .cutPaper()
+      .write();
+      
   }
 
   goToHome() {
