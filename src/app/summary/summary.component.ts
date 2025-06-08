@@ -38,7 +38,7 @@ export class SummaryComponent implements OnInit {
 
   async printCard(cardId: string) {
     if(cardId === "order-card"){
-      await CapacitorThermalPrinter.connect({ address:"" });
+      await CapacitorThermalPrinter.connect({ address:":0C:25:76:6A:EC:E8" });
       await CapacitorThermalPrinter.begin()
       .align('center')
       .bold()
@@ -55,7 +55,7 @@ export class SummaryComponent implements OnInit {
     }
 
     if(cardId === "receipt-card"){
-      await CapacitorThermalPrinter.connect({ address:"" });
+      await CapacitorThermalPrinter.connect({ address:":0C:25:76:6A:EC:E8" });
       await CapacitorThermalPrinter.begin()
       .align('center')
       .bold()
@@ -79,7 +79,7 @@ export class SummaryComponent implements OnInit {
     var content = 'Store Receipt\n\nITEMS\n\n'
         content += 'Store Order\n\nITEMS\n\n';
 
-    await CapacitorThermalPrinter.connect({ address:"" });
+    await CapacitorThermalPrinter.connect({ address:":0C:25:76:6A:EC:E8" });
     await CapacitorThermalPrinter.begin()
       .align('center')
       .bold()
@@ -87,7 +87,7 @@ export class SummaryComponent implements OnInit {
       .text(content)
       .cutPaper()
       .write();
-      
+
   }
 
   goToHome() {
